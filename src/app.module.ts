@@ -3,9 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductosModule } from './productos/productos.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import 'dotenv/config'
 
 @Module({
-  imports: [ProductosModule, MongooseModule.forRoot('mongodb+srv://Backend:Backend@cluster0.6xdsyrn.mongodb.net/?retryWrites=true&w=majority' || 'mongodb://localhost:27017/test')],
+  imports: [
+    ProductosModule,
+    MongooseModule.forRoot(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
